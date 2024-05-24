@@ -10,6 +10,11 @@
                     <div class="card-body">
                         <h6 class="display-6">Appointments</h6>
 
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         @if (session('delete'))
                             <div class="alert alert-danger">
                                 {{ session('delete') }}

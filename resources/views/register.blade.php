@@ -18,6 +18,11 @@
                             value="{{ old('email') }}">
                     </div>
                     <div class="form-group mt-3">
+                        <label for="phone">Phone</label>
+                        <input type="phone" class="form-control" id="phone" name="phone"
+                            value="{{ old('phone') }}">
+                    </div>
+                    <div class="form-group mt-3">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password">
                     </div>

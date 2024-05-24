@@ -26,7 +26,7 @@ class AppointmentController extends Controller
 
         Appointment::create($validated);
 
-        return back()->with('success', 'Appointment scheduled');
+        return redirect(route('appointment.index'))->with('success', 'Appointment scheduled');
     }
 
     public function destroy(Appointment $appointment)

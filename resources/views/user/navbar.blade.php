@@ -18,6 +18,12 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ route('services.view') }}">Vehicle Servicing</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('cart.view') }}">Vehicle Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('pcart.view') }}">Part Orders</a>
+                </li>
             </ul>
             <form class="d-flex align-items-end mb-0" role="search" method="POST" action="{{ route('logout') }}">
                 @csrf

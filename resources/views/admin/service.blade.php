@@ -1,6 +1,6 @@
 @extends('layouts.header')
 
-@include('user.navbar')
+@include('admin.navbar')
 @section('content')
     <div class="container mt-5 pt-5 pb-5 shadow bg-white px-5">
         <div class="row">

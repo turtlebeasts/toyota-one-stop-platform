@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasManyThrough(Car::class, CarTranssaction::class, 'user_id', 'id', 'id', 'car_id');
     }
 
+    public function parts()
+    {
+        return $this->hasManyThrough(Part::class, PartTransaction::class, 'user_id', 'id', 'id', 'part_id');
+    }
+
     public function feedbacks()
     {
         return $this->hasMany(Feedback::class);

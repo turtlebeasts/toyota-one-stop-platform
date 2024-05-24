@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\CarTranssaction;
 use App\Models\FeedBack;
 use App\Models\Part;
+use App\Models\PartTransaction;
 use App\Models\Services;
 use App\Models\User;
 use Carbon\Carbon;
@@ -25,6 +26,10 @@ class UserController extends Controller
         $car->load('feedbacks.user');
         return view('user.carpage', compact('car'));
     }
+    public function part(Part $part)
+    {
+        return view('user.part', compact('part'));
+    }
 
     public function cart(Car $car)
     {
@@ -39,6 +44,21 @@ class UserController extends Controller
         $car->save();
 
         return back()->with('success', 'Car added');
+    }
+
+    public function part_cart(Part $part)
+    {
+        $user = auth()->user();
+        PartTransaction::create([
+            'user_id' => $user->id,
+            'part_id' => $part->id,
+            'date' => Carbon::today(),
+        ]);
+
+        $part->stock = $part->stock - 1;
+        $part->save();
+
+        return back()->with('success', 'Part added');
     }
 
     public function feedback(Request $request, Car $car)
@@ -86,5 +106,35 @@ class UserController extends Controller
         Services::destroy($service);
 
         return back()->with('delete', 'Service appointment deleted');
+    }
+
+    public function cart_view()
+    {
+        $cart = CarTranssaction::where('user_id', auth()->user()->id)->get();
+        return view('user.cart', compact('cart'));
+    }
+    public function part_cart_view()
+    {
+        $cart = PartTransaction::where('user_id', auth()->user()->id)->get();
+        return view('user.pcart', compact('cart'));
+    }
+
+    public function remove(CarTranssaction $cart)
+    {
+        $car = Car::find($cart->car->id);
+        $car->stock = $car->stock + 1;
+        $car->save();
+        CarTranssaction::destroy($cart->id);
+
+        return back()->with('delete', 'Item removed from cart');
+    }
+    public function part_remove(PartTransaction $part)
+    {
+        $item = Part::find($part->part->id);
+        $item->stock = $item->stock + 1;
+        $item->save();
+        PartTransaction::destroy($part->id);
+
+        return back()->with('delete', 'Item removed from cart');
     }
 }

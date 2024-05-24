@@ -8,15 +8,17 @@ use App\Http\Controllers\PartController;
 use App\Http\Controllers\ShowroomController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthenticate;
+use App\Http\Middleware\EmployeeAuthenticate;
 use App\Http\Middleware\NoCache;
 use App\Http\Middleware\UserAuthenticate;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/logins', [LoginController::class, 'index'])->name('login.view');
 Route::post('/admin-login', [LoginController::class, 'admin'])->name('admin.login');
 Route::post('/user-login', [LoginController::class, 'user'])->name('user.login');
+Route::post('/employee-login', [LoginController::class, 'employee'])->name('employee.login');
 
 Route::get('/register', [LoginController::class, 'register_view']);
 Route::post('/user-register', [LoginController::class, 'register'])->name('user.register');
@@ -64,6 +66,24 @@ Route::group(['middleware' => [UserAuthenticate::class, NoCache::class]], functi
         Route::get('/services', [UserController::class, 'services'])->name('services.view');
         Route::post('/services', [UserController::class, 'services_store'])->name('services.store');
         Route::delete('/services/{service}', [UserController::class, 'destroy'])->name('services.destroy');
+
+        Route::get('/cart', [UserController::class, 'cart_view'])->name('cart.view');
+        Route::delete('/cart-remove/{cart}', [UserController::class, 'remove'])->name('cart.remove');
+
+        Route::get('/part-cart', [UserController::class, 'part_cart_view'])->name('pcart.view');
+        Route::get('/part/{part}', [UserController::class, 'part'])->name('user.part');
+        Route::post('/part/{part}', [UserController::class, 'part_cart'])->name('user.part_cart');
+        Route::delete('/part-remove/{part}', [UserController::class, 'part_remove'])->name('part_cart.remove');
+    });
+});
+
+Route::group(['middleware' => [EmployeeAuthenticate::class, NoCache::class]], function () {
+    Route::prefix('employee')->group(function () {
+        Route::get('/', [EmployeeController::class, 'dashboard'])->name('employee.dashboard');
+        Route::post('/task-complete/{service}', [EmployeeController::class, 'mark_complete'])->name('employee.mark_complete');
+
+        Route::get('/account', [EmployeeController::class, 'account_view'])->name('employee.account');
+        Route::post('/account', [EmployeeController::class, 'set_password'])->name('employee.set_password');
     });
 });
 

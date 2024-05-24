@@ -68,12 +68,45 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-dark">Employee</a>
+                <a href="#" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#employeeModal">Employee</a>
+
+                <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="adminModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="adminModalLabel">Employee login</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="{{ route('employee.login') }}">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control"
+                                            id="exampleInputPassword1">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-dark">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
                 <a href="#" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#userModal">User</a>
 
                 <!-- Admin Modal -->
-                <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+                <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="adminModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -86,8 +119,8 @@
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp">
+                                        <input type="email" name="email" class="form-control"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>

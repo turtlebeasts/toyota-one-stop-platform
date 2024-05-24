@@ -60,6 +60,7 @@
                             <h5 class="mt-2">{{ $car->name }} <small>{{ $car->color }}</small></h5>
                             <p>Built-model: {{ $car->year }}</p>
                             <p>$ {{ $car->price }}</p>
+                            <p>In-stock: {{ $car->stock }}</p>
                             <p>{{ $car->description }}</p>
                             <a href="{{ route('user.car', $car->id) }}" class="btn btn-dark">View</a>
                         </div>
@@ -80,6 +81,7 @@
                             <h5 class="mt-2">{{ $part->name }}</h5>
                             <p>$ {{ $part->price }}</p>
                             <p>{{ $part->description }}</p>
+                            <a href="{{ route('user.part', $part->id) }}" class="btn btn-dark">View</a>
                         </div>
                     </div>
                 </div>
@@ -129,7 +131,8 @@
                                 @if (session('success'))
                                     <div class="alert alert-success mt-2">
                                         {{ session('success') }} <br>
-                                        Navigate <a href="">here</a> to check your appointment
+                                        Navigate <a href="{{ route('appointment.index') }}">here</a> to check your
+                                        appointment
                                     </div>
                                 @endif
                                 @if ($errors->all())
