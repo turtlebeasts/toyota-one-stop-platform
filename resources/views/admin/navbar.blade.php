@@ -21,6 +21,15 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ route('admin.part') }}">Car Parts</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.appointment') }}">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.buyer') }}">Buyer List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.services') }}">Service List</a>
+                </li>
             </ul>
             <form class="d-flex align-items-end mb-0" role="search" method="POST" action="{{ route('logout') }}">
                 @csrf

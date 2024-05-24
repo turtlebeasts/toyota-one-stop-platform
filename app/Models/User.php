@@ -44,4 +44,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function cars()
+    {
+        return $this->hasManyThrough(Car::class, CarTranssaction::class, 'user_id', 'id', 'id', 'car_id');
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasMany(CarTranssaction::class);
+    }
+    public function services()
+    {
+        return $this->hasMany(Services::class);
+    }
 }

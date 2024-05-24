@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PartController;
@@ -40,11 +41,29 @@ Route::group(['middleware' => [AdminAuthenticate::class, NoCache::class]], funct
         Route::put('/part/{id}', [PartController::class, 'update'])->name('admin.part.update');
         Route::delete('/part/{id}', [PartController::class, 'destroy'])->name('admin.part.destroy');
         Route::put('/part/stock/{part}', [PartController::class, 'stock'])->name('admin.part.stock');
+
+        Route::get('/appointment', [AdminController::class, 'appointment'])->name('admin.appointment');
+        Route::put('/appointment/{appointment}', [AdminController::class, 'update'])->name('admin.appointment.update');
+
+        Route::get('/buyer-list', [AdminController::class, 'buyer'])->name('admin.buyer');
+        Route::get('/service-list', [AdminController::class, 'services'])->name('admin.services');
+        Route::put('/service-list/{service}', [AdminController::class, 'assign'])->name('admin.services.assign');
     });
 });
 Route::group(['middleware' => [UserAuthenticate::class, NoCache::class]], function () {
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'dashboard'])->name('user.dashboard');
+        Route::get('/car/{car}', [UserController::class, 'car'])->name('user.car');
+        Route::post('/car/{car}', [UserController::class, 'cart'])->name('user.cart');
+        Route::post('/feedback/{car}', [UserController::class, 'feedback'])->name('user.feedback');
+
+        Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
+        Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
+        Route::delete('/appointment/{appointment}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+
+        Route::get('/services', [UserController::class, 'services'])->name('services.view');
+        Route::post('/services', [UserController::class, 'services_store'])->name('services.store');
+        Route::delete('/services/{service}', [UserController::class, 'destroy'])->name('services.destroy');
     });
 });
 
