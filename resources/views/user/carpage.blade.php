@@ -46,7 +46,7 @@
                 <h1 class="display-3">{{ $car->name }} </h1>
                 <h4 class="text-secondary">{{ $car->color }}</h4>
                 <br>
-                <p class="fs-3 text-danger">$ {{ $car->price }}</p>
+                <p class="fs-3 text-danger">₹ {{ $car->price }}</p>
                 <b>Built-model: {{ $car->year }}</b>
                 <p>{{ $car->description }}</p>
 

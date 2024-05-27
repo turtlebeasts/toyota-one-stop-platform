@@ -93,6 +93,7 @@
                                     <h6>Name: {{ $part->name }}</h6>
                                     <b>stock: {{ $part->stock }}</b>
                                     <p>{{ $part->description }}</p>
+                                    <p>price: ₹ {{ $part->price }}</p>
                                 </td>
                                 <td>
                                     <!-- Button trigger edit modal -->

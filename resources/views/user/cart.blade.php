@@ -23,7 +23,7 @@
                                 foreach ($cart as $key => $c) {
                                     $total += $c->car->price;
                                 }
-                                echo "Total price: $ " . $total;
+                                echo 'Total price: ₹ ' . $total;
                             }
                         @endphp
                     </div>
@@ -38,7 +38,7 @@
                             <div class="card-body">
                                 <h6>{{ $cart->car->name }}</h6>
                                 <img src="/storage/{{ $cart->car->photo }}" alt="" class="img-fluid">
-                                <b>$ {{ $cart->car->price }}</b><br>
+                                <b>₹ {{ $cart->car->price }}</b><br>
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-danger mt-2 btn-sm" data-bs-toggle="modal"

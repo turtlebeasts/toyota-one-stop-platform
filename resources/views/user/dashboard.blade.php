@@ -59,7 +59,7 @@
                             <img src="storage/{{ $car->photo }}" alt="{{ $car->name }}" class="img img-fluid">
                             <h5 class="mt-2">{{ $car->name }} <small>{{ $car->color }}</small></h5>
                             <p>Built-model: {{ $car->year }}</p>
-                            <p>$ {{ $car->price }}</p>
+                            <p>₹ {{ $car->price }}</p>
                             <p>In-stock: {{ $car->stock }}</p>
                             <p>{{ $car->description }}</p>
                             <a href="{{ route('user.car', $car->id) }}" class="btn btn-dark">View</a>
@@ -79,7 +79,7 @@
                         <div class="card-body bg-dark text-light">
                             <img src="storage/{{ $part->photo }}" alt="{{ $part->name }}" class="img img-fluid">
                             <h5 class="mt-2">{{ $part->name }}</h5>
-                            <p>$ {{ $part->price }}</p>
+                            <p>₹ {{ $part->price }}</p>
                             <p>{{ $part->description }}</p>
                             <a href="{{ route('user.part', $part->id) }}" class="btn btn-dark">View</a>
                         </div>

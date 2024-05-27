@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ShowroomController;
@@ -13,7 +14,10 @@ use App\Http\Middleware\NoCache;
 use App\Http\Middleware\UserAuthenticate;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/features', [HomeController::class, 'features']);
+Route::get('/news', [HomeController::class, 'news']);
+Route::get('/services', [HomeController::class, 'services']);
 
 Route::get('/logins', [LoginController::class, 'index'])->name('login.view');
 Route::post('/admin-login', [LoginController::class, 'admin'])->name('admin.login');

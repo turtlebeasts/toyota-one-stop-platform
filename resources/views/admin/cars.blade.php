@@ -102,6 +102,7 @@
                                     <small>{{ $car->color }}</small><br>
                                     <b>stock: {{ $car->stock }}</b>
                                     <p>{{ $car->description }}</p>
+                                    <p>price: ₹ {{ $car->price }}</p>
                                 </td>
                                 <td>
                                     <!-- Button trigger edit modal -->
