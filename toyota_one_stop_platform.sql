@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 24, 2024 at 03:30 PM
+-- Generation Time: May 28, 2024 at 02:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -226,7 +226,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2024_05_21_070745_create_appointments_table', 8),
 (16, '2024_05_21_110622_add_status_to_appointments_table', 9),
 (17, '2024_05_22_085109_create_services_table', 10),
-(18, '2024_05_24_115148_create_part_transactions_table', 11);
+(18, '2024_05_24_115148_create_part_transactions_table', 11),
+(19, '2024_05_27_183935_create_resell_vehicles_table', 12),
+(20, '2024_05_27_183943_create_rentals_table', 12),
+(21, '2024_05_27_224304_add_photo_column_to_resells', 13);
 
 -- --------------------------------------------------------
 
@@ -290,6 +293,55 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rentals`
+--
+
+CREATE TABLE `rentals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `vehicle_id` bigint(20) UNSIGNED NOT NULL,
+  `note` text DEFAULT NULL,
+  `price_per_day` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `rentals`
+--
+
+INSERT INTO `rentals` (`id`, `vehicle_id`, `note`, `price_per_day`, `created_at`, `updated_at`) VALUES
+(2, 4, 'This car is for rent', 200, '2024-05-27 19:00:11', '2024-05-27 19:00:11'),
+(3, 2, 'This is another vehicle for rental service', 150, '2024-05-27 19:02:10', '2024-05-27 19:02:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resell_vehicles`
+--
+
+CREATE TABLE `resell_vehicles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `vehicle_name` varchar(255) NOT NULL,
+  `resell_price` int(10) UNSIGNED NOT NULL,
+  `condition` int(10) UNSIGNED NOT NULL,
+  `description` text DEFAULT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `photo` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `resell_vehicles`
+--
+
+INSERT INTO `resell_vehicles` (`id`, `user_id`, `vehicle_name`, `resell_price`, `condition`, `description`, `approved`, `created_at`, `updated_at`, `photo`) VALUES
+(5, 7, 'another', 1, 5, NULL, 0, '2024-05-27 18:55:46', '2024-05-27 18:55:46', 'photos/SqHGqAqEBF66JU0EXWwspgOkzEtu46USeowcu5Qu.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
@@ -334,7 +386,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('0Xl2QhzEqhrtLaKFqieCENh71dw93OUdFnHPPFAl', 7, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiM21menRCeWNyU3F6M25hdkhJSE5EMk56S0ZRelFXQTc5N0FKWVJ6OSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC91c2VyL2NhcnQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo3O30=', 1716554653);
+('OiOnhNngPIjSYJkTc4uuAOCgz9eCGhfLXAMCUgMV', NULL, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiS09DY3U1eUlaZmQzMGFVODV4UHk2M29CbjhKdzJ6MWpEYXpZV0liZSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9yZW50YWxzIjt9fQ==', 1716856656);
 
 -- --------------------------------------------------------
 
@@ -459,6 +511,20 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `rentals`
+--
+ALTER TABLE `rentals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rentals_vehicle_id_foreign` (`vehicle_id`);
+
+--
+-- Indexes for table `resell_vehicles`
+--
+ALTER TABLE `resell_vehicles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `resell_vehicles_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -526,7 +592,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `parts`
@@ -538,6 +604,18 @@ ALTER TABLE `parts`
 -- AUTO_INCREMENT for table `part_transactions`
 --
 ALTER TABLE `part_transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `rentals`
+--
+ALTER TABLE `rentals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `resell_vehicles`
+--
+ALTER TABLE `resell_vehicles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
@@ -583,6 +661,18 @@ ALTER TABLE `feed_backs`
 ALTER TABLE `part_transactions`
   ADD CONSTRAINT `part_transactions_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `part_transactions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `rentals`
+--
+ALTER TABLE `rentals`
+  ADD CONSTRAINT `rentals_vehicle_id_foreign` FOREIGN KEY (`vehicle_id`) REFERENCES `cars` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `resell_vehicles`
+--
+ALTER TABLE `resell_vehicles`
+  ADD CONSTRAINT `resell_vehicles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `services`
