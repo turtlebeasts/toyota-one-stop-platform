@@ -484,8 +484,8 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/features">Features</a></li>
                 <li><a href="/services">Services</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="used.html">Used Cars</a></li>
+                <li><a href="/used-cars">Used Cars</a></li>
+                <li><a href="/rentals">Rental Cars</a></li>
                 <li><a href="/news">News</a></li>
             </ul>
 

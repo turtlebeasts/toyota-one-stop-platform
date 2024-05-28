@@ -6,6 +6,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PartController;
+use App\Http\Controllers\RentalController;
+use App\Http\Controllers\ResellController;
 use App\Http\Controllers\ShowroomController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthenticate;
@@ -18,6 +20,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/features', [HomeController::class, 'features']);
 Route::get('/news', [HomeController::class, 'news']);
 Route::get('/services', [HomeController::class, 'services']);
+Route::get('/used-cars', [HomeController::class, 'used_cars']);
+Route::get('/rentals', [HomeController::class, 'rentals']);
 
 Route::get('/logins', [LoginController::class, 'index'])->name('login.view');
 Route::post('/admin-login', [LoginController::class, 'admin'])->name('admin.login');
@@ -54,6 +58,13 @@ Route::group(['middleware' => [AdminAuthenticate::class, NoCache::class]], funct
         Route::get('/buyer-list', [AdminController::class, 'buyer'])->name('admin.buyer');
         Route::get('/service-list', [AdminController::class, 'services'])->name('admin.services');
         Route::put('/service-list/{service}', [AdminController::class, 'assign'])->name('admin.services.assign');
+
+        Route::get('/resell', [AdminController::class, 'resell'])->name('admin.resell');
+        Route::put('/resell/{vehicle}', [AdminController::class, 'approve_resell'])->name('admin.approve_resell');
+
+        Route::get('/rental', [RentalController::class, 'index'])->name('admin.rental');
+        Route::post('/rental', [RentalController::class, 'store'])->name('admin.rental.store');
+        Route::delete('/rental/{id}', [RentalController::class, 'destroy'])->name('admin.rental.destroy');
     });
 });
 Route::group(['middleware' => [UserAuthenticate::class, NoCache::class]], function () {
@@ -78,6 +89,10 @@ Route::group(['middleware' => [UserAuthenticate::class, NoCache::class]], functi
         Route::get('/part/{part}', [UserController::class, 'part'])->name('user.part');
         Route::post('/part/{part}', [UserController::class, 'part_cart'])->name('user.part_cart');
         Route::delete('/part-remove/{part}', [UserController::class, 'part_remove'])->name('part_cart.remove');
+
+        Route::get('/sell-cars', [ResellController::class, 'index'])->name('resell_vehicles.index');
+        Route::post('/sell-cars', [ResellController::class, 'store'])->name('resell_vehicles.store');
+        Route::delete('/sell-cars/{id}', [ResellController::class, 'destroy'])->name('resell_vehicles.destroy');
     });
 });
 

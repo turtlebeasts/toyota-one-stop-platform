@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Rental;
+use App\Models\ResellVehicle;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +26,17 @@ class HomeController extends Controller
     {
         $cars = Car::all();
         return view('services', compact('cars'));
+    }
+
+    public function used_cars()
+    {
+        $cars = ResellVehicle::all();
+        return view('used', compact('cars'));
+    }
+
+    public function rentals()
+    {
+        $cars = Rental::all();
+        return view('rental', compact('cars'));
     }
 }

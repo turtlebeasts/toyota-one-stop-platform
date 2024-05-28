@@ -25,10 +25,16 @@
                     <a class="nav-link" aria-current="page" href="{{ route('admin.appointment') }}">Appointments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ route('admin.buyer') }}">Buyer List</a>
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.buyer') }}">Buyers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ route('admin.services') }}">Service List</a>
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.services') }}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.resell') }}">Resells</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('admin.rental') }}">Rentals</a>
                 </li>
             </ul>
             <form class="d-flex align-items-end mb-0" role="search" method="POST" action="{{ route('logout') }}">

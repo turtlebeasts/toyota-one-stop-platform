@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\CarTranssaction;
+use App\Models\ResellVehicle;
 use App\Models\Services;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -61,5 +62,19 @@ class AdminController extends Controller
         $service->save();
 
         return back()->with('success', 'Appointment scheduled');
+    }
+
+    public function resell()
+    {
+        $resellVehicles = ResellVehicle::all();
+        return view('admin.vehicle_resell', compact('resellVehicles'));
+    }
+
+    public function approve_resell(ResellVehicle $vehicle)
+    {
+        $vehicle->approved = true;
+        $vehicle->save();
+
+        return back()->with('success', 'Vehicle approved for resell');
     }
 }
